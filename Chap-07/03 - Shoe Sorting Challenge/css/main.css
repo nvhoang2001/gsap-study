@@ -1,0 +1,66 @@
+body {
+	margin: 0;
+	background-color: #f4f0d0;
+	font-family: "Poppins", sans-serif;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+	max-width: 1200px;
+	margin: 5em auto;
+}
+
+main button {
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	border: 0;
+	cursor: pointer;
+	font-weight: bold;
+	align-self: flex-end;
+}
+
+.cards {
+	display: flex;
+	gap: 1em;
+}
+
+.cards .card {
+	padding: 2rem;
+	background-color: white;
+	border-radius: 0.3em;
+}
+
+.cards .card img {
+	width: 100%;
+}
+
+.cards .card h2 {
+	margin: 1em 0 0;
+	font-weight: 700;
+	font-size: 1em;
+}
+
+.cards .card p {
+	margin: 0;
+	font-size: 0.85rem;
+}
+
+.sort {
+	flex-direction: column;
+}
+
+.sort .card {
+	display: flex;
+	gap: 2em;
+}
+
+.sort .card img {
+	width: 200px;
+}
+
+.sort .card h2 {
+	margin: 0;
+}

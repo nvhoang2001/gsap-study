@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Challenge</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<section></section>
+
+		<section class="middle">
+			<div class="mask h2"><h2>sophen</h2></div>
+
+			<div class="card card1">
+				<div class="mask">
+					<h3>advanced<br />interactions</h3>
+				</div>
+				<div class="mask">
+					<p>
+						Equipped with the latest technology to create the most advanced
+						interactions.
+					</p>
+				</div>
+				<div class="box"></div>
+			</div>
+
+			<div class="card card2">
+				<div class="mask">
+					<h3>extended<br />easing</h3>
+				</div>
+				<div class="mask">
+					<p>Utilize our expert Flo Protocol to extend easing capabilities.</p>
+				</div>
+				<div class="box"></div>
+			</div>
+		</section>
+
+		<section></section>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+		<script>
+			const timeline = gsap.timeline({
+				/**
+				 * Property for scroll trigger plugin
+				 * This gonna control the animation start
+				 */
+				scrollTrigger: {
+					/**
+					 * Trigger element
+					 * The element that'll trigger the scroll animation
+					 * When the trigger element come into viewport, the timeline'll be triggered to play
+					 */
+					trigger: ".middle",
+					/**
+					 * Control when the animation start position
+					 * The first value is the position of the trigger animation
+					 * The second value is the position of the viewport relative to the observation target position
+					 * In the below, the observed position is the top and the trigger position is the middle
+					 * This mean, when the top of the trigger element come to the middle of the viewport,
+					 * the timeline animation will be start.
+					 */
+					start: "top middle", // "20% middle", "top 20%"
+					/**
+					 * Animation end point,
+					 * The 1st value is the position of the trigger element,
+					 * The 2nd value is the position of the viewport
+					 * Same as start, when the position of the trigger element reach to the marked position of the viewport
+					 */
+					end: "bottom center", // "bottom+=20% middle"
+
+					/**
+					 * Show markers, for debug purpose
+					 */
+					markers: false,
+					/**
+					 * Tired the animation progress state with scroll position progress instead of animation duration
+					 * Default: false
+					 * When set to true, the animation duration will has no effect to the animation progress
+					 * */
+					scrub: false,
+				},
+			});
+
+			timeline
+				.from(["h2", "h3", "p"], {
+					yPercent: 180,
+					stagger: 0.1,
+				})
+				.from(
+					".box",
+					{
+						scaleY: 0,
+						ease: "elastic.out(1, 0.5)",
+						duration: 2,
+						stagger: 0.3,
+					},
+					"<",
+				);
+		</script>
+	</body>
+</html>

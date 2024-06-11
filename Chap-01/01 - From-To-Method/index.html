@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>From and To</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<h1>BORING</h1>
+		<div class="progress"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script>
+			const progress = document.querySelector(".progress");
+			const h1 = document.querySelector("h1");
+
+			/**
+			 * gsap is the global variable that's defined from gsap cdn
+			 * There're 2 ways to amimate an element with to method, the first one is define the variable and then, pass it to gsap like below
+			 */
+			gsap.to(progress, {
+				/** Animate the width property */
+				width: "100%",
+				/** Define the animation duration with 2s */
+				duration: 2,
+				/** Easing function, check at https://gsap.com/docs/v3/Eases */
+				ease: "power1.inOut",
+			});
+
+			gsap.to(progress, {
+				top: 0,
+				height: "100%",
+				delay: 2,
+				backgroundColor: "white",
+			});
+
+			/**
+			 * And the second one, is to use inline selector like this
+			 */
+			// gsap.to(".progress", {});
+
+			gsap.from(h1, {
+				// yPercent: -20,
+				/** Translate element from 200px above */
+				y: -200,
+				duration: 2,
+				ease: "elastic.out(1,0.3)",
+			});
+		</script>
+	</body>
+</html>

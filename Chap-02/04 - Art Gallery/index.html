@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Challenge</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Playfair+Display:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<section class="intro">
+			<h1>scroll down</h1>
+		</section>
+
+		<section class="gallery">
+			<ul>
+				<li>
+					<a href="#">
+						<img src="art1.jpg" alt="Syntholtic" />
+
+						<div class="border"></div>
+
+						<div class="info">
+							<span>01</span>
+							<p>Syntholtic</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="art2.jpg" alt="Bumblebee" />
+
+						<div class="border"></div>
+
+						<div class="info">
+							<span>02</span>
+							<p>Bumblebee</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="art3.jpg" alt="Smorg" />
+
+						<div class="border"></div>
+
+						<div class="info">
+							<span>03</span>
+							<p>Smorg</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="art4.jpg" alt="Violeta" />
+
+						<div class="border"></div>
+
+						<div class="info">
+							<span>04</span>
+							<p>Violeta</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</section>
+		<section class="intro">
+			<h1>scroll up</h1>
+		</section>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+			integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+			integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+		<script>
+			// const galleryListItem = gsap.utils.toArray(".gallery li");
+
+			// galleryListItem.forEach((galleryItem) => {
+			// 	const noInfoEl = galleryItem.querySelector(".info>span");
+			// 	const nameInfoEl = galleryItem.querySelector(".info>p");
+			// 	const borderEl = galleryItem.querySelector(".border");
+			// 	const imgEl = galleryItem.querySelector("img");
+
+			// 	const scrollTimeline = gsap.timeline({
+			// 		scrollTrigger: {
+			// 			trigger: ".gallery",
+			// 			start: "top 20%",
+			// 			end: "bottom center",
+			// 		},
+			// 	});
+
+			// 	scrollTimeline
+			// 		.from(imgEl, {
+			// 			y: -100,
+			// 			ease: "elastic.out(1,0.3)",
+			// 		})
+			// 		.to(
+			// 			imgEl,
+			// 			{
+			// 				"--left-corner": 0,
+			// 				ease: "slow(0.7,0.7,false))",
+			// 			},
+			// 			"<",
+			// 		)
+			// 		.from(
+			// 			noInfoEl,
+			// 			{
+			// 				yPercent: 20,
+			// 				xPercent: -10,
+			// 				opacity: 0,
+			// 			},
+			// 			"<",
+			// 		)
+			// 		.from(
+			// 			nameInfoEl,
+			// 			{
+			// 				yPercent: 20,
+			// 				xPercent: 10,
+			// 				opacity: 0,
+			// 			},
+			// 			"<",
+			// 		)
+			// 		.from(
+			// 			borderEl,
+			// 			{
+			// 				scaleX: 0,
+			// 				origin: "left center",
+			// 				// onComplete: () => {
+			// 				// 	gsap.to(borderEl, {
+			// 				// 		scaleX: 0,
+			// 				// 		origin: "right right",
+			// 				// 	});
+			// 				// },
+			// 			},
+			// 			"<",
+			// 		)
+			// 		.to(imgEl, {
+			// 			"--right-corner": 0,
+			// 			ease: "back.out(1.7)",
+			// 		});
+
+			// 	const mouseInteractTimeline = gsap.timeline();
+
+			// 	mouseInteractTimeline
+			// 		.to(imgEl, {
+			// 			"--right-corner": "20%",
+			// 		})
+			// 		.to(
+			// 			imgEl,
+			// 			{
+			// 				"--right-bottom-corner": "80%",
+			// 			},
+			// 			"<",
+			// 		);
+
+			// 	mouseInteractTimeline.pause();
+
+			// 	imgEl.addEventListener("mouseenter", () => {
+			// 		mouseInteractTimeline.play();
+			// 	});
+			// 	imgEl.addEventListener("mouseleave", () => {
+			// 		mouseInteractTimeline.reverse();
+			// 	});
+			// });
+
+			const gallery = gsap.utils.toArray("img");
+			gsap.set("img", {
+				clipPath: "polygon(0 100%, 100% 100%, 100%, 100%, 0 100%)",
+			});
+
+			gsap.set(".border", {
+				scaleX: 0,
+			});
+			gsap.set(["span", "p"], {
+				yPercent: 100,
+			});
+
+			const timeline = gsap.timeline({
+				scrollTrigger: {
+					trigger: "section.gallery",
+					start: "top 20%",
+					end: "bottom top",
+					toggleActions: "play none play reverse",
+				},
+				defaults: {
+					ease: "power4.inOut",
+				},
+			});
+
+			timeline
+				.from("li", {
+					y: -100,
+					stagger: 0.1,
+				})
+				.to(
+					"img",
+					{
+						clipPath: "polygon(0% 95%, 100% 49%, 100% 100%, 0% 100%)",
+					},
+					"<",
+				)
+				.to(
+					"img",
+					{
+						clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+					},
+					"-=.5",
+				)
+				.to(
+					".border",
+					{
+						scaleX: 1,
+					},
+					"-=.5",
+				)
+				.to(
+					["span", "p"],
+					{
+						yPercent: 0,
+						stagger: 0.1,
+					},
+					"-=.5",
+				);
+
+			gallery.forEach((img) => {
+				const titleEl = img.parentElement.querySelector("p");
+				const originTitle = titleEl.innerText;
+
+				const tween = gsap.to(img, {
+					clipPath: "polygon(0% 13%, 100% 0%, 100% 87%, 0% 100%)",
+					paused: true,
+				});
+
+				img.addEventListener("mouseenter", () => {
+					tween.play();
+					randomType(titleEl, "01", 500, true);
+				});
+
+				img.addEventListener("mouseleave", () => {
+					tween.reverse();
+					titleEl.innerText = originTitle;
+				});
+			});
+
+			function randomType(element, characters, duration, sequential = false) {
+				let originalText = element.innerText;
+				let textArray = originalText.split("");
+				let charactersArray = characters.split("");
+				let startTime = new Date().getTime();
+				let interval;
+
+				if (sequential) {
+					let currentIndex = 0;
+					interval = setInterval(function () {
+						textArray[currentIndex] =
+							charactersArray[Math.floor(Math.random() * charactersArray.length)];
+						element.innerText = textArray.join("");
+						currentIndex++;
+						if (currentIndex === textArray.length) {
+							currentIndex = 0;
+						}
+						if (new Date().getTime() - startTime >= duration) {
+							clearInterval(interval);
+							element.innerText = originalText;
+						}
+					}, 20);
+				} else {
+					interval = setInterval(function () {
+						for (let i = 0; i < textArray.length; i++) {
+							textArray[i] =
+								charactersArray[Math.floor(Math.random() * charactersArray.length)];
+						}
+						element.innerText = textArray.join("");
+						if (new Date().getTime() - startTime >= duration) {
+							clearInterval(interval);
+							element.innerText = originalText;
+						}
+					}, 0);
+				}
+			}
+
+			// smooth scroll
+
+			const lenis = new Lenis();
+
+			function raf(time) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+		</script>
+	</body>
+</html>

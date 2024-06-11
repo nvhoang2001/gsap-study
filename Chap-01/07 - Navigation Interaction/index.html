@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Challenge</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400&family=Poppins:wght@400;900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<main>
+			<section>
+				<ul>
+					<li>
+						<a href="#">
+							<div class="heading-container">
+								<p class="primary">2019 Yo-Yo Contest Website</p>
+								<p class="secondary">2019 Yo-Yo Contest Website</p>
+							</div>
+
+							<p class="date">UI/UX 2019</p>
+							<div class="line"></div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<div class="heading-container">
+								<p class="primary">SamAsh Guitars</p>
+								<p class="secondary">SamAsh Guitars</p>
+							</div>
+
+							<p class="date">IDENTITY - UI/UX 2020</p>
+							<div class="line"></div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<div class="heading-container">
+								<p class="primary">EastWest SoundLine</p>
+								<p class="secondary">EastWest SoundLine</p>
+							</div>
+
+							<p class="date">UI/UX - FRONTEND 2021</p>
+							<div class="line"></div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<div class="heading-container">
+								<p class="primary">NextPollution</p>
+								<p class="secondary">NextPollution</p>
+							</div>
+
+							<p class="date">UI/UX 2022</p>
+							<div class="line"></div>
+						</a>
+					</li>
+				</ul>
+			</section>
+		</main>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+		<script>
+			const navListEl = document.querySelector("ul");
+			const navListItemEl = navListEl.children;
+			const timelines = new Array(navListItemEl.length).fill("").map(() =>
+				gsap.timeline({
+					defaults: {
+						duration: 1,
+						ease: "power3.out",
+						stagger: 0.2,
+					},
+				}),
+			);
+
+			function navItemHoverListener(item, index) {
+				const timeline = timelines[index];
+				timeline.play();
+			}
+
+			function navItemMouseOutListener(item, index) {
+				const timeline = timelines[index];
+				timeline.reverse();
+			}
+
+			Array.from(navListItemEl).forEach((item, index) => {
+				const containerEl = item.querySelector(".heading-container");
+				const primaryTextEl = item.querySelector(".primary");
+				const secondaryTextEl = item.querySelector(".secondary");
+				const lineEl = item.querySelector(".line");
+				const dateEl = item.querySelector(".date");
+				const timeline = timelines[index];
+
+				timeline
+					.to(primaryTextEl, {
+						y: "-100%",
+					})
+					.to(
+						secondaryTextEl,
+						{
+							y: "-50%",
+						},
+						/* < character will make this animation start at the same time with the previous one */
+						"<",
+					)
+					.to(
+						lineEl,
+						{
+							scaleX: 1,
+						},
+						"<",
+					)
+					.to(
+						dateEl,
+						{
+							y: "0",
+						},
+						"<",
+					);
+
+				timeline.paused(true);
+
+				containerEl.addEventListener("mouseenter", () => {
+					navItemHoverListener(item, index);
+				});
+
+				containerEl.addEventListener("mouseleave", () => {
+					navItemMouseOutListener(item, index);
+				});
+			});
+		</script>
+	</body>
+</html>

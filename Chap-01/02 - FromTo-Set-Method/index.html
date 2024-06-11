@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>From and To</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<div class="container">
+			<p>luxury</p>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+		<script>
+			const container = document.querySelector(".container");
+			const text = container.querySelector("p");
+
+			const tween = gsap.to(container, {
+				borderRadius: "2%",
+				width: "20vw",
+				height: "28vw",
+				// Paused the animation to when call play()
+				paused: true,
+			});
+
+			const textTween = gsap.to(text, {
+				x: 0,
+				paused: true,
+				fontSize: "clamp(5rem, 5vw, 10rem)",
+			});
+
+			container.addEventListener("mouseenter", () => {
+				tween.play();
+				textTween.play();
+			});
+
+			container.addEventListener("mouseleave", () => {
+				tween.reverse();
+				textTween.reverse();
+			});
+		</script>
+	</body>
+</html>

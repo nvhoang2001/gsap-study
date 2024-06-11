@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Deep Sea Creatures</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body>
+		<section></section>
+		<div class="outer">
+			<div class="scroll-container slider">
+				<section>
+					<figure class="inner">
+						<img src="./fish1.png" alt="fish 1" />
+						<figcaption class="content">
+							<h3>Lumifin</h3>
+							<p>
+								The Lumifin is a bioluminescent fish that boasts wing-like fins
+								which emit soft, pulsating glows, illuminating the ocean's deepest
+								crevices. Its long, ribbon-like tail acts as a rudder, allowing it
+								to dance gracefully among the underwater currents.
+							</p>
+						</figcaption>
+					</figure>
+				</section>
+				<section>
+					<figure class="inner">
+						<img src="./fish2.png" alt="fish 2" />
+						<figcaption class="content">
+							<h3>Nyxel Tentaclea</h3>
+							<p>
+								The Nyxel Tentaclea is a deep-sea cephalopod cloaked in inky
+								blackness, with dozens of slender, retractable tentacles covered in
+								tiny phosphorescent dots that mimic the night sky. When threatened,
+								it releases a cloud of shimmering, starlit ink, dazzling its
+								predators.
+							</p>
+						</figcaption>
+					</figure>
+				</section>
+				<section>
+					<figure class="inner">
+						<img src="./fish3.png" alt="fish 1" />
+						<figcaption class="content">
+							<h3>Abyssal Spirejaw</h3>
+							<p>
+								Residing in the deepest ocean trenches, the Abyssal Spirejaw has a
+								translucent, spiral-shaped body, culminating in a jaw that resembles
+								twisted spires, allowing it to snag and swallow unsuspecting prey.
+							</p>
+						</figcaption>
+					</figure>
+				</section>
+			</div>
+		</div>
+		<section></section>
+
+		<div class="fish-container">
+			<img src="fish4.png" alt="" data-scale="1.2" />
+			<img src="fish4.png" alt="" data-scale="0.5" />
+			<img src="fish4.png" alt="" data-scale="2" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+			<img src="fish4.png" alt="" />
+		</div>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+			integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+			integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+		<script src="https://unpkg.com/split-type"></script>
+
+		<script>
+			const container = document.querySelector(".scroll-container");
+			const sections = gsap.utils.toArray(".scroll-container section");
+
+			const scrollTween = gsap.to(sections, {
+				xPercent: -100 * (sections.length - 1),
+				ease: "none",
+				scrollTrigger: {
+					trigger: container,
+					pin: true,
+					scrub: 1,
+					end: () => container.offsetWidth,
+					snap: 1 / (sections.length - 1),
+				},
+			});
+
+			sections.forEach((section) => {
+				const img = section.querySelector("img");
+				const title = section.querySelector("h3");
+				const description = section.querySelector("p");
+				const splitedTitle = new SplitType(title);
+				console.log("splitedTitle", splitedTitle);
+
+				const timeline = gsap.timeline();
+				timeline.from(
+					splitedTitle.chars,
+					{
+						yPercent: -100,
+						rotateZ: "30deg",
+						scrollTrigger: {
+							containerAnimation: scrollTween,
+							trigger: section,
+							start: "left center",
+							toggleActions: "play none none reverse",
+						},
+					},
+					"+=0.25",
+				);
+
+				function getScrollTriggerDefaultConfig(triggerElement) {
+					return {
+						containerAnimation: scrollTween,
+						trigger: triggerElement,
+						start: "left center",
+						toggleActions: "play none none reverse",
+					};
+				}
+
+				gsap.from(img, {
+					xPercent: 10,
+					opacity: 0,
+					duration: 1,
+					scale: 0.75,
+					scrollTrigger: getScrollTriggerDefaultConfig(section),
+					filter: "grayscale(100%)",
+				});
+
+				// gsap.from(title, {
+				// 	y: -50,
+				// 	x: 120,
+				// 	opacity: 0,
+				// 	scrollTrigger: getScrollTriggerDefaultConfig(section),
+				// });
+				gsap.from(description, {
+					y: -50,
+					x: 150,
+					opacity: 0,
+					scrollTrigger: getScrollTriggerDefaultConfig(section),
+				});
+			});
+
+			const fishes = gsap.utils.toArray(".fish-container img");
+
+			function getRandomInt(min, max) {
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			fishes.forEach((fish, i) => {
+				gsap.to(fish, {
+					xPercent: getRandomInt(-250, 300),
+					ease: "none",
+					scale: fish.dataset.scale || undefined,
+					scrollTrigger: {
+						trigger: container,
+						scrub: true,
+						end: container.offsetWidth,
+					},
+				});
+			});
+
+			// smooth scroll
+
+			const lenis = new Lenis();
+
+			function raf(time) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+		</script>
+	</body>
+</html>

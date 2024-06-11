@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Deep Sea Creatures</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body>
+		<div class="outer">
+			<div class="slider">
+				<section>
+					<div class="inner">
+						<img src="./fish1.png" alt="fish 1" />
+						<div class="content">
+							<h3>Lumifin</h3>
+							<p>
+								The Lumifin is a bioluminescent fish that boasts wing-like fins
+								which emit soft, pulsating glows, illuminating the ocean's deepest
+								crevices. Its long, ribbon-like tail acts as a rudder, allowing it
+								to dance gracefully among the underwater currents.
+							</p>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="inner">
+						<img src="./fish2.png" alt="fish 2" />
+						<div class="content">
+							<h3>Nyxel Tentaclea</h3>
+							<p>
+								The Nyxel Tentaclea is a deep-sea cephalopod cloaked in inky
+								blackness, with dozens of slender, retractable tentacles covered in
+								tiny phosphorescent dots that mimic the night sky. When threatened,
+								it releases a cloud of shimmering, starlit ink, dazzling its
+								predators.
+							</p>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="inner">
+						<img src="./fish3.png" alt="fish 1" />
+						<div class="content">
+							<h3>Abyssal Spirejaw</h3>
+							<p>
+								Residing in the deepest ocean trenches, the Abyssal Spirejaw has a
+								translucent, spiral-shaped body, culminating in a jaw that resembles
+								twisted spires, allowing it to snag and swallow unsuspecting prey.
+							</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="fish-container">
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="80" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="200" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="300" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="140" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="40" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="210" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="190" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="155" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="80" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="58" />
+			<img src="./fish4.png" alt="Animated vector fish" data-distance="227" />
+		</div>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+			integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+			integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+		<script src="https://unpkg.com/split-type"></script>
+
+		<script>
+			const slider = document.querySelector(".slider");
+			const sections = gsap.utils.toArray(".slider section");
+			const fishes = gsap.utils.toArray(".fish-container img");
+
+			const timeline = gsap.timeline({
+				defaults: {
+					ease: "none",
+				},
+				scrollTrigger: {
+					trigger: slider,
+					pin: true,
+					scrub: 2,
+					end: () => "+=" + slider.offsetWidth,
+				},
+			});
+
+			timeline.to(slider, {
+				xPercent: (-100 * (sections.length - 1)) / sections.length,
+			});
+
+			sections.forEach((section, index) => {
+				const content = section.querySelector(".content");
+				const img = section.querySelector("img");
+
+				timeline
+					.from(content, {
+						yPercent: -50,
+						opacity: 0,
+						scrollTrigger: {
+							containerAnimation: timeline,
+							trigger: content,
+							start: "left center",
+							end: "center center",
+							scrub: true,
+						},
+					})
+					.from(img, {
+						xPercent: 40,
+						yPercent: -100,
+						ease: "elastic.out(1,1)",
+						scrollTrigger: {
+							trigger: img,
+							containerAnimation: timeline,
+							scrub: 2,
+						},
+					});
+			});
+
+			fishes.forEach((fish, index) => {
+				gsap.from(fish, {
+					xPercent: fish.dataset.distance,
+					scrollTrigger: {
+						scrub: 0.3,
+					},
+				});
+			});
+
+			// smooth scroll
+
+			const lenis = new Lenis();
+
+			function raf(time) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+		</script>
+	</body>
+</html>
